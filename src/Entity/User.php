@@ -52,12 +52,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->email = $email;
         return $this;
     }
-
-    public function getUserIdentifier(): string
+    public function getPassword(): string
     {
-        return $this->email;
+        return $this->password;
     }
 
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+        return $this;
+    }
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+    }
     public function getRoles(): array
     {
         $roles = $this->roles;
@@ -70,30 +82,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->roles = $roles;
         return $this;
     }
-
-    public function getPassword(): string
+    public function getUserIdentifier(): string
     {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-        return $this;
+        return (string) $this->email;
     }
     public function getUsername(): string
     {
-        return $this->email;
+        return (string) $this->email;
     }
 
-    public function getSalt(): ?string
-    {
-        return null;
-    }
-
-    public function eraseCredentials()
-    {
-    }
 
     /**
      * @ORM\OneToMany(targetEntity=Birthday::class, mappedBy="user", orphanRemoval=true)

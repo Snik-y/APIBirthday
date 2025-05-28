@@ -26,13 +26,19 @@ class Birthday
 
     /**
      * @ORM\Column(type="date_immutable")
+     * JMS\SerializedName("birthdate")
      */
-    #[JMS\SerializedName("birthdate")]
     private $date;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getName(): ?string
